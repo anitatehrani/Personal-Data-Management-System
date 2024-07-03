@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Data Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Insert Personal Data</h2>
+    <form id="insertForm">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control" id="surname" name="surname" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" name="gender" required>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </div>
+            <div class="form-group col-md-8">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date_of_birth">Date of Birth</label>
+            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" required>
+        </div>
+        <h3 class="mt-4">Educational Experiences</h3>
+        <div class="form-group">
+            <label for="institution_name">Institution / University / Training Organization</label>
+            <input type="text" class="form-control" id="institution_name" name="institution_name" required>
+        </div>
+        <div class="form-group">
+            <label for="main_topics">Main Topics Covered</label>
+            <input type="text" class="form-control" id="main_topics" name="main_topics" required>
+        </div>
+        <div class="form-group">
+            <label for="degree_obtained">Degree Obtained</label>
+            <input type="text" class="form-control" id="degree_obtained" name="degree_obtained" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="from_year">From Year</label>
+                <input type="text" class="form-control" id="from_year" name="from_year" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="to_year">To Year</label>
+                <input type="text" class="form-control" id="to_year" name="to_year" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="grades">Grades</label>
+            <input type="text" class="form-control" id="grades" name="grades">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <h2 class="mt-5">Consultation</h2>
+    <input class="form-control mb-3" id="search" type="text" placeholder="Search by surname...">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Surname</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="dataTable"></tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="editForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Record</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editid" name="editid">
+
+                    <div class="form-group">
+                        <label for="editname">Name</label>
+                        <input type="text" class="form-control" id="editname" name="editname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editsurname">Surname</label>
+                        <input type="text" class="form-control" id="editsurname" name="editsurname" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editgender">Gender</label>
+                        <select class="form-control" id="editgender" name="editgender" required>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editemail">Email Address</label>
+                        <input type="email" class="form-control" id="editemail" name="editemail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editdate_of_birth">Date of Birth</label>
+                        <input type="text" class="form-control" id="editdate_of_birth" name="editdate_of_birth" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editinstitution_name">Institution / University / Training Organization</label>
+                        <input type="text" class="form-control" id="editinstitution_name" name="editinstitution_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="editmain_topics">Main Topics Covered</label>
+                        <input type="text" class="form-control" id="editmain_topics" name="editmain_topics">
+                    </div>
+                    <div class="form-group">
+                        <label for="editdegree_obtained">Diploma / Degree Obtained</label>
+                        <input type="text" class="form-control" id="editdegree_obtained" name="editdegree_obtained">
+                    </div>
+                    <div class="form-group">
+                        <label for="editfrom_year">Year of Attendance (From)</label>
+                        <input type="text" class="form-control" id="editfrom_year" name="editfrom_year">
+                    </div>
+                    <div class="form-group">
+                        <label for="editto_year">Year of Attendance (To)</label>
+                        <input type="text" class="form-control" id="editto_year" name="editto_year">
+                    </div>
+                    <div class="form-group">
+                        <label for="editgrades">Grades</label>
+                        <input type="text" class="form-control" id="editgrades" name="editgrades">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#editdate_of_birth, #editfrom_year, #editto_year').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+        $('#date_of_birth, #from_year, #to_year').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+
+        $('#insertForm').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: 'insert.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (response) {
+                    $('#insertForm')[0].reset();
+                    loadData();
+                }
+            });
+        });
+
+        function loadData() {
+            $.ajax({
+                url: 'fetch.php',
+                type: 'GET',
+                success: function (response) {
+                    let data = JSON.parse(response);
+                    let tableContent = '';
+                    $.each(data, function (key, value) {
+                        tableContent += `<tr>
+                            <td>${value.surname}</td>
+                            <td>${value.name}</td>
+                            <td>${value.age}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm editBtn" data-id="${value.id}">Edit</button>
+                                <button class="btn btn-danger btn-sm deleteBtn" data-id="${value.id}">Delete</button>
+                            </td>
+                        </tr>`;
+                    });
+                    $('#dataTable').html(tableContent);
+                }
+            });
+        }
+
+        loadData();
+
+        $('#search').on('keyup', function () {
+            let value = $(this).val().toLowerCase();
+            $('#dataTable tr').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        $(document).on('click', '.deleteBtn', function () {
+            if (confirm('Are you sure you want to delete this record?')) {
+                let id = $(this).data('id');
+                $.ajax({
+                    url: 'delete.php',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (response) {
+                        alert(response);
+                        loadData();
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '.editBtn', function () {
+            let id = $(this).data('id');
+            $.ajax({
+                url: 'fetch_single.php',
+                type: 'POST',
+                data: { id: id },
+                success: function (response) {
+                    let data = JSON.parse(response);
+                    $('#editid').val(data.id);
+                    $('#editname').val(data.name);
+                    $('#editsurname').val(data.surname);
+                    $('#editgender').val(data.gender);
+                    $('#editemail').val(data.email);
+                    $('#editdate_of_birth').val(data.date_of_birth);
+                    $('#editinstitution_name').val(data.institution_name);
+                    $('#editmain_topics').val(data.main_topics);
+                    $('#editdegree_obtained').val(data.degree_obtained);
+                    $('#editfrom_year').val(data.from_year);
+                    $('#editto_year').val(data.to_year);
+                    $('#editgrades').val(data.grades);
+                }
+            });
+            $('#editModal').modal('show');
+
+        });
+
+        $('#editForm').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: 'update.php',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (response) {
+                    alert(response);
+                    $('#editModal').modal('hide');
+                    loadData();
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
