@@ -26,8 +26,6 @@ This is a simple web application for managing personal data including basic info
 - **`update.php`**: PHP script to handle updating of records.
 - **`delete.php`**: PHP script to handle deletion of records.
 - **`db.php`**: PHP script to establish database connection.
-- **`assets/`**: Directory containing CSS and JavaScript files.
-- **`vendor/`**: Directory for external libraries (if used).
 
 ## Setup Instructions
 
